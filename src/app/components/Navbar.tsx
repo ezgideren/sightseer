@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ClerkLoading, ClerkLoaded, SignedIn, SignedOut } from '@clerk/nextjs'
 
 const Navbar = () => {
   return (
@@ -23,13 +24,26 @@ const Navbar = () => {
                         <span>About</span>
                     </Link>
                 </div>           
-        {/* Login&Register */}    
+        {/* Login&Register */}   
+            <ClerkLoading>
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-gray-500 border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" />
+            </ClerkLoading> 
+            <ClerkLoaded>
             <div className='w-[30%] flex items-center gap-4 xl:gap-8 justify-end mx-6'>
+                <SignedIn>
+                <div className='flex flex-row justify-between gap-2 cursor-pointer'>
+                        <span className='font-semibold text-gray-700'>My Profile</span>
+                        <Image src="/passport.png" alt='' width={28} height={28}/>
+                    </div>
+                </SignedIn>
+                <SignedOut>
                 <div className='flex items-center gap-1 text-sm'>
                         <Image src="/login-luggage.png" alt='' width={36} height={36}/>
                         <Link href="/sign-in">Login/Register</Link>
                 </div>
+                </SignedOut>
             </div>
+            </ClerkLoaded>
         </div>
     </div>
   )
